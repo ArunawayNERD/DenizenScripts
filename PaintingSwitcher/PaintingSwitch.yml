@@ -1,0 +1,19 @@
+PaintingSwitch:
+    type: command
+    debug: true
+    name: PaintingSwitch
+    description: TODO      
+    usage: /PaintingSwitch
+    script:
+        - if <player.flag[PaintingSwitchToggled]> == null || <player.flag[PaintingSwitchToggled]> == 0 {
+            - flag <player> PaintingSwitchToggled:1
+            - flag <player> PaintingList:|:Kebab|Aztec|Alban|Aztec2|Bomb|Plant|Wasteland|Wanderer|Graham|Pool|Courbet|Sunset|Sea|Creebet|Match|Bust|Stage|Void|Skull_And_Roses|Wither|Fighters|Skeleton|DonkeyKong|Pointer|Pigscene|BurningSkull
+            - flag <player> PaintingCounter:1
+            - narrate "<Gold> Painting Switcher Toggled ON"
+        } else {
+            - flag <player> PaintingSwitchToggled:!
+            - flag <player> PaintingList:!
+            - flag <player> PaintingCounter:!
+            
+            - narrate "<Gold> Painting Switcher Toggled OFF"
+        }

@@ -1,0 +1,16 @@
+PaintingSwitcher:
+    type: world
+    events:
+        on player scrolls their hotbar:
+        - if <player.flag[PaintingSwitchToggled]> == 1 {
+
+            - define nextPainting <player.flag[PaintingList].get[<player.flag[PaintingCounter].as_int>]>   
+            
+            - adjust <player.location.cursor_on.find.entities[painting].within[5].get[1]> painting:<def[nextPainting]>
+        
+            - if <player.flag[PaintingCounter].as_int> < <player.flag[PaintingList].size> {
+                - flag <player> PaintingCounter:++
+            } else {
+                - flag <player> PaintingCounter:1
+            }  
+        }

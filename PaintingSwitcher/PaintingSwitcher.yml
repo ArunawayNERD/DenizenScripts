@@ -27,7 +27,7 @@ PaintingSwitch:
 
             - define nextPainting <player.flag[PaintingList].get[<player.flag[PaintingCounter].as_int>]>   
             
-            - adjust <player.location.cursor_on.find.entities[painting].within[5].get[1]> painting:<def[nextPainting]>
+            - adjust <player.location.cursor_on.find.entities[painting].within[3].get[1]> painting:<def[nextPainting]>
         
             - if <player.flag[PaintingCounter].as_int> < <player.flag[PaintingList].size> {
                 - flag <player> PaintingCounter:++

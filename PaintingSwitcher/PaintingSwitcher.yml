@@ -5,7 +5,7 @@ PaintingSwitcher:
     description: Toggles the ability to change paintings with the scroll wheel      
     usage: /PaintingSwitcher
     script:
-        - if <player.flag[PaintingSwitchToggled]> == null || <player.flag[PaintingSwitchToggled]> == 0 {
+        - if <player.has_flag[PaintingSwitchToggled]> == false || <player.flag[PaintingSwitchToggled]> == 0 {
             - flag <player> PaintingSwitchToggled:1
             - flag <player> PaintingList:|:Kebab|Aztec|Alban|Aztec2|Bomb|Plant|Wasteland|Wanderer|Graham|Pool|Courbet|Sunset|Sea|Creebet|Match|Bust|Stage|Void|Skull_And_Roses|Wither|Fighters|Skeleton|DonkeyKong|Pointer|Pigscene|BurningSkull
             - flag <player> PaintingCounter:1
@@ -26,7 +26,10 @@ PaintingSwitch:
     debug: false
     events:
         on player scrolls their hotbar:
-        - if <player.flag[PaintingSwitchToggled]> == 1 && <player.flag[scrollCounter].as_int.mod[2.0]> == 0 {
+        # we first check if the player has the flag, so we can short circut the if statement when the player doesnt have the flag set.
+        # This prevents spamming the console with invalid tag errors. We check for scroll counter mod 2 becuase when the scroll is canceled,
+        # it seems to cause a second scroll event resulting in two paintings switching per scroll. 
+        - if  <player.has_flag[PaintingSwitchToggled]> == true && <player.flag[PaintingSwitchToggled]> == 1 && <player.flag[scrollCounter].as_int.mod[2.0]> == 0 {
 
             - determine passively cancelled 
             
@@ -39,7 +42,6 @@ PaintingSwitch:
             } else {
                 - flag <player> PaintingCounter:1
             } 
-  
-        }
+         }
         
         - flag <player> scrollCounter:++

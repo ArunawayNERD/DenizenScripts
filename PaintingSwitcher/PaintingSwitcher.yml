@@ -9,11 +9,14 @@ PaintingSwitcher:
             - flag <player> PaintingSwitchToggled:1
             - flag <player> PaintingList:|:Kebab|Aztec|Alban|Aztec2|Bomb|Plant|Wasteland|Wanderer|Graham|Pool|Courbet|Sunset|Sea|Creebet|Match|Bust|Stage|Void|Skull_And_Roses|Wither|Fighters|Skeleton|DonkeyKong|Pointer|Pigscene|BurningSkull
             - flag <player> PaintingCounter:1
+            - flag <player> scrollCounter:0
             - narrate "<Gold> Painting Switcher Toggled ON"
         } else {
             - flag <player> PaintingSwitchToggled:!
             - flag <player> PaintingList:!
             - flag <player> PaintingCounter:!
+            - flag <player> scrollCounter:!
+            
             
             - narrate "<Gold> Painting Switcher Toggled OFF"
         }
@@ -23,8 +26,10 @@ PaintingSwitch:
     debug: false
     events:
         on player scrolls their hotbar:
-        - if <player.flag[PaintingSwitchToggled]> == 1 {
+        - if <player.flag[PaintingSwitchToggled]> == 1 && <player.flag[scrollCounter].as_int.mod[2.0]> == 0 {
 
+            - determine passively cancelled 
+            
             - define nextPainting <player.flag[PaintingList].get[<player.flag[PaintingCounter].as_int>]>   
             
             - adjust <player.location.cursor_on.find.entities[painting].within[3].get[1]> painting:<def[nextPainting]>
@@ -33,5 +38,8 @@ PaintingSwitch:
                 - flag <player> PaintingCounter:++
             } else {
                 - flag <player> PaintingCounter:1
-            }  
+            } 
+  
         }
+        
+        - flag <player> scrollCounter:++

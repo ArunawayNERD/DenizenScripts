@@ -142,14 +142,18 @@ DonatorTillyUsage:
     script:    
     - define counter 1
     - define listMax <context.args.get[0].as_int>
-        
-        - define playerList <server.list_players>
+     
+    - narrate <server.list_players>
+    - define playerList <server.list_players.sort[TillyUsageSort]>
+    
+    
     - narrate <def[playerList]>
     
     #add check to make sure passed arg is valid
     - narrate "<gray>==========<yellow>Tilly's Usage<gray>=========="
     - while <def[counter].is[OR_LESS].than[<def[listMax]>]> {
-        - narrate "<def[topPlayerList].get[<def[counter]>]>: times visited <> time(s)"
+        - define currentPlayer <def[PlayerList].get[<def[counter]>]>
+        - narrate "<def[currentPlayer].name>: times visited <def[currentPlayer].flag[TimesVisitedTilly].as_int||0> time(s)"
         - define counter <def[counter].add[1]>
         }
     - narrate "<gray>=============================="
@@ -158,8 +162,8 @@ TillyUsageSort:
     type: Procedure
     definitions: player1|player2
     script:
-    - define timesP1 <def[player1].flag[TimesVisitedTilly].as_int || 0>
-    - define timesP2 <def[player2].flag[TimesVisitedTilly].as_int || 0>
+    - define timesP1 <def[player1].flag[TimesVisitedTilly].as_int||0>
+    - define timesP2 <def[player2].flag[TimesVisitedTilly].as_int||0>
    
     - if <def[timesP1].is[EQUALS].than[<def[timesP2]>]> {
         - determine 0

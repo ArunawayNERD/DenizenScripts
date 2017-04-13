@@ -142,12 +142,11 @@ DonatorTillyUsage:
     script:    
     - define counter 1
     - define listMax <context.args.get[0].as_int>
-     
-    - narrate <server.list_players>
     - define playerList <server.list_players.sort[TillyUsageSort]>
     
-    
-    - narrate <def[playerList]>
+    - if <def[listMax].is[MORE].than[<server.list_players.size>]> {
+        - define listMax <server.list_players.size>
+    }
     
     #add check to make sure passed arg is valid
     - narrate "<gray>==========<yellow>Tilly's Usage<gray>=========="

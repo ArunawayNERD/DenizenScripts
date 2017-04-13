@@ -137,13 +137,14 @@ DonatorTillyUsage:
     name: TillyUsage
     Description: Lists how many times people have used Tilly
     Usage: /TillyUsage <&lt>List Length<&gt> 
-    script:
-    - define topPlayerList <li@name1|name2|name3|name4|name5|name6>
-    
+    script:    
     - define counter 1
     - define listMax <context.args.get[0].as_int>
     
-
+    - narrate <context.args> 
+    - narrate <proc[TillyUsageSort].context[3|2]>
+    
+    
     #add check to make sure passed arg is valid
     - narrate "<gray>==========<yellow>Tilly's Usage<gray>=========="
     - while <def[counter].is[OR_LESS].than[<def[listMax]>]> {
@@ -151,3 +152,17 @@ DonatorTillyUsage:
         - define counter <def[counter].add[1]>
         }
     - narrate "<gray>=============================="
+    
+TillyUsageSort:
+    type: Procedure
+    definitions: player1|player2
+    script:
+    - define timesP1 <def[player1].flag[TimesVisitedTilly].as_int>
+    - define timesP2 <def[player2].flag[TimesVisitedTilly].as_int>
+   
+    - if <def[timesP1].is[LESS].than[<def[timesP2]>]> {
+        - determine true
+    }
+    else {
+        - determine false
+    }

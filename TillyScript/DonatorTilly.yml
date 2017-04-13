@@ -138,6 +138,16 @@ DonatorTillyUsage:
     Description: Lists how many times people have used Tilly
     Usage: /TillyUsage <&lt>List Length<&gt> 
     script:
-      
-    - define count <context.args.get[0].as_int>
-    - narrate <def[count]>
+    - define topPlayerList <li@name1|name2|name3|name4|name5|name6>
+    
+    - define counter 1
+    - define listMax <context.args.get[0].as_int>
+    
+
+    #add check to make sure passed arg is valid
+    - narrate "<gray>==========<yellow>Tilly's Usage<gray>=========="
+    - while <def[counter].is[OR_LESS].than[<def[listMax]>]> {
+        - narrate "<def[topPlayerList].get[<def[counter]>]>: times visited <> time(s)"
+        - define counter <def[counter].add[1]>
+        }
+    - narrate "<gray>=============================="

@@ -132,3 +132,10 @@ DonatorTillyInteraction:
                 - zap step:1 
                 - trigger name:chat toggle:true radius:4 
                 
+DonatorTillyUsage:
+    type: command
+    name: TillyUsage
+    Description: Lists how many times people have used Tilly
+    Usage: /TillyUsage <&lt>myArg1<&gt> 
+    script:
+    - narrate "test"

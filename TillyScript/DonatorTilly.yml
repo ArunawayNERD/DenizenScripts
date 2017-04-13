@@ -136,6 +136,8 @@ DonatorTillyUsage:
     type: command
     name: TillyUsage
     Description: Lists how many times people have used Tilly
-    Usage: /TillyUsage <&lt>myArg1<&gt> 
+    Usage: /TillyUsage <&lt>List Length<&gt> 
     script:
-    - narrate "test"
+      
+    - define count <context.args.get[0].as_int>
+    - narrate <def[count]>

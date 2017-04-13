@@ -29,6 +29,8 @@ DonatorTillyInteraction:
                     script: 
                     - ^if <player.money> >= 100 { 
                         - ^take money qty:100 
+                        #update the player;s flag
+                        - flag player TimesVisitedTilly:+:1 
                         - ^trigger name:chat toggle:false 
                         - ^engage duration:15s 
                         - narrate "<blue>You have paid <white>100 doubloons<blue> for a private session." 
@@ -140,8 +142,9 @@ DonatorTillyUsage:
     script:    
     - define counter 1
     - define listMax <context.args.get[0].as_int>
-    
-    
+        
+        - define playerList <server.list_players>
+    - narrate <def[playerList]>
     
     #add check to make sure passed arg is valid
     - narrate "<gray>==========<yellow>Tilly's Usage<gray>=========="
